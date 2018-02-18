@@ -53,6 +53,7 @@ void	clkhandler()
 
 	if((--preempt) == 0) {
 		preempt = QUANTUM;
-		resched();
+                /*  FIFI process can use all the time if it likes*/
+		//resched();  
 	}
 }

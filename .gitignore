@@ -12,3 +12,13 @@ xinu.elf
 .jed_100
 .vers_num
 version
+system/conf.c
+config/lex.yy.c
+config/y.tab.c
+config/config
+cross_compiler/bin/cache/arm-none-eabi-g++
+cross_compiler/libexec/gcc/arm-none-eabi/4.8.1/liblto_plugin.so.0
+compile/Makefile
+compile/bin/build-make
+compile/uboot-tool/source.txt
+compile/uboot-tool/mkimage.c

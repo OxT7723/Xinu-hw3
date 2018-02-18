@@ -2,31 +2,33 @@
 
 #include <xinu.h>
 
-void sndch(char , int32 );
-
 process	main(void)
 {
 
-    //sleep(1); // give the system time to full boot before running out test.
-    resume(create(sndch, 2000, 1, "send a", 2, 'A', 10));
-    resume(create(sndch, 2000, 200, "send b", 2, 'B', 25));
-    resume(create(sndch, 2000, 1, "send c", 2, 'C', 9));
-    resume(create(sndch, 2000, 50, "send d", 2, 'D', 5));
-    resume(create(sndch, 2000, 5, "send e", 2, 'E', 8));
+	/* Run the Xinu shell */
 
-    return OK;
+	recvclr();
+	resume(create(shell, 8192, 50, "shell", 1, CONSOLE));
+        int32 i =0;
+        while (i < 5){
+            
+            dumpProctab(1);
+            sleep(1);
+            i++;
+        }
+
+	/* Wait for shell to exit and recreate it */
+/*
+	while (TRUE) {
+		receive();
+		sleepms(200);
+		kprintf("\n\nMain process recreating shell\n\n");
+		resume(create(shell, 4096, 20, "shell", 1, CONSOLE)); 
+	}
+	return OK;
+    */
 }
 
-void sndch(char ch, int32 xtimes)
-{
-    int32 i;
-    
-    while(i < xtimes)
-    {
-        kputc(ch);
-		i++;
-    }
-}
 char *prssb[] = 
 {
 	"FREE ",

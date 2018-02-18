@@ -16,21 +16,27 @@ status	insert(
 	qid16	prev;			/* Holds previous node index	*/
 
 	if (isbadqid(q) || isbadpid(pid)) {
-		return SYSERR;
+            return SYSERR;
 	}
-
-	curr = firstid(q);
+        enqueue(pid, q);
+	//curr = firstid(q);
+        
+        
+        /* put the new process behind the last one for FIFO*/
+        /*
 	while (queuetab[curr].qkey >= key) {
 		curr = queuetab[curr].qnext;
-	}
+	} */
 
 	/* Insert process between curr node and previous node */
 
-	prev = queuetab[curr].qprev;	/* Get index of previous node	*/
-	queuetab[pid].qnext = curr;
-	queuetab[pid].qprev = prev;
-	queuetab[pid].qkey = key;
-	queuetab[prev].qnext = pid;
-	queuetab[curr].qprev = pid;
+
+//	prev = queuetab[curr].qprev;	/* Get index of previous node	*/
+//	queuetab[pid].qnext = curr;
+//	queuetab[pid].qprev = prev;
+//	queuetab[pid].qkey = key;
+//	queuetab[prev].qnext = pid;
+//	queuetab[curr].qprev = pid;
+
 	return OK;
 }

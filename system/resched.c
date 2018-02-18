@@ -3,7 +3,6 @@
 #include <xinu.h>
 
 struct	defer	Defer;
-
 /*------------------------------------------------------------------------
  *  resched  -  Reschedule processor to highest priority eligible process
  *------------------------------------------------------------------------
@@ -12,6 +11,7 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 {
 	struct procent *ptold;	/* Ptr to table entry for old process	*/
 	struct procent *ptnew;	/* Ptr to table entry for new process	*/
+        
 
 	/* If rescheduling is deferred, record attempt and return */
 
@@ -24,10 +24,15 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 
 	ptold = &proctab[currpid];
 
-	if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
-		if (ptold->prprio > firstkey(readylist)) {
-			return;
-		}
+	if (ptold->prstate == PR_CURR) {  /* Process remains eligible if not null 
+                                            process 
+                                         */
+
+            /* check if the process null return if not */
+            if(currpid != NULLPROC)
+            {
+                return;
+            }
 
 		/* Old process will no longer remain current */
 
